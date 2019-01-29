@@ -9,7 +9,7 @@
  
 //define your url and tokens
 define("URL","https://retailer.myopenpay.com.au/ServiceTraining/JAMServiceImpl.svc/"); // Change the url as per Test or Live Environment
-define("JAMTOKEN","30000000000000889|155f5b95-a40a-4ae5-8273-41ae83fec8c9"); // Change the jamtoken as per Test or Live Environment
+define("JAMTOKEN","Put your JamToken here"); // Change the jamtoken as per Test or Live Environment
 define('CALLBACK_URL','/checkout/callback'); // Success Url
 define('CANCLE_URL','/checkout/cancel'); // Cancel Url
 define('FAILURE_URL','/checkout/failure'); // Failure Url

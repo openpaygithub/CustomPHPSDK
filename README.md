@@ -30,18 +30,24 @@ This docmetation basically for non composer php. if you want to use our sdk for 
 -----------------------------------------------------------------------------
  <br>                          
 <h3>                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Parameters from site</h3>
-
-
-
+ <br> 
+ <h3> 
+set  these parameters  from lib/openpay/common/openpay.php
+define("URL","https://retailer.myopenpay.com.au/ServiceTraining/JAMServiceImpl.svc/"); // Change the url as per Test or Live Environment
+define("JAMTOKEN","put your jam token here-"); // Change the jamtoken as per Test or Live Environment
+define('CALLBACK_URL','/checkout/callback'); // Success Url
+define('CANCLE_URL','/checkout/cancel'); // Cancel Url
+define('FAILURE_URL','/checkout/failure'); // Failure Url
+</h3>
 <pre style="background-color: #d3f1f3; color: black;">      $PurchasePrice = 170.00;                                            //Format : 100.00(Not more than $1 million)
       
-      $JamCallbackURL = $current_url."/openpay-au-sdk/callback.php";     //Not more than 250 characters
+      $JamCallbackURL = $current_url.CALLBACK_URL;     //Not more than 250 characters
       
-      $JamCancelURL = $current_url."/openpay-au-sdk/cancel.php";         //Not more than 250 characters
+      $JamCancelURL = $current_url.CANCLE_URL;         //Not more than 250 characters
       
-      $JamFailURL = $current_url."/openpay-au-sdk/failure.php";          //Not more than 250 characters
+      $JamFailURL = $current_url.FAILURE_URL;          //Not more than 250 characters
       
-      $form_url = https://retailer.myopenpay.com.au/WebSalesTraining/;
+      $form_url = URL;
       
       $JamRetailerOrderNo = '10000478';                                  //Consumer site order number
       
@@ -53,7 +59,7 @@ This docmetation basically for non composer php. if you want to use our sdk for 
       
       $JamFamilyName = 'Test';                                          //Last name(Not more than 50 characters)
       
-      $JamDateOfBirth = '04 Nov 1982';                                  //dd mmm yyyy
+      $JamDateOfBirth = '04 Nov 1985';                                  //dd mmm yyyy
       
       $JamAddress1 = '15/520 Collins Street';                           //Not more than 100 characters
       
