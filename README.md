@@ -31,14 +31,14 @@ This docmetation basically for non composer php. if you want to use our sdk for 
  <br>                          
 <h3>                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Parameters from site</h3>
  <br> 
- <h3> 
+ <pre style="background-color: #d3f1f3; color: black;">
 set  these parameters  from lib/openpay/common/openpay.php
 define("URL","https://retailer.myopenpay.com.au/ServiceTraining/JAMServiceImpl.svc/"); // Change the url as per Test or Live Environment
 define("JAMTOKEN","put your jam token here-"); // Change the jamtoken as per Test or Live Environment
 define('CALLBACK_URL','/checkout/callback'); // Success Url
 define('CANCLE_URL','/checkout/cancel'); // Cancel Url
 define('FAILURE_URL','/checkout/failure'); // Failure Url
-</h3>
+</pre>
 <pre style="background-color: #d3f1f3; color: black;">      $PurchasePrice = 170.00;                                            //Format : 100.00(Not more than $1 million)
       
       $JamCallbackURL = $current_url.CALLBACK_URL;     //Not more than 250 characters
