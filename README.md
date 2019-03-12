@@ -443,3 +443,81 @@ order_refund log time: 202.191.214.153 - January 3, 2019, 9:26 am</pre>
             "reason":{},
             "PlanID":"3000000022291"
           }</pre>
+		  
+		  
+		  
+- **For Plan Dispatch**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This call supports Retailers that are set up to not receive any payment for their Plans until their system has issued a &nbsp;&nbsp;&nbsp;&nbsp;dispatch notice. This allows those retailers to make adjustments to their orders as needed prior to fulfilment and then receive &nbsp;&nbsp;&nbsp;&nbsp;the payment and reconciliation information after the dispatch event occurs.
+
+<pre style="background-color: #d3f1f3; color: black;">
+      $PlanID = '3000000020110';                                    //Plan ID retrieved from Web Call 1 API
+      $Method = "OnlineOrderDispatchPlan";
+      $obj = new OnlineOrderDispatchPlan(URL, $Method, '', JAMTOKEN, AUTHTOKEN, $PlanID);
+      $response = $obj->_checkOrderDispatchPlan(); 
+      $output = json_decode($response,true);
+      $openErrorStatus = new ErrorHandler();
+
+      if($openErrorStatus !='')
+      {
+        $openErrorStatus->_checkstatus($output['status']);  
+      }
+</pre>
+<br>
+
+- **Something to write to txt log**
+<pre style="background-color: #d3f1f3; color: black;">
+    $log  = "order_status log time: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+    "Log: ".$response.PHP_EOL.
+    "-------------------------".PHP_EOL;
+</pre>
+<br>
+
+- **Save string to log, use FILE_APPEND to append**
+<pre style="background-color: #d3f1f3; color: black;">
+    file_put_contents('./lib/Openpay/Log/log'.date("j.n.Y").'.log', $log, FILE_APPEND);
+    print_r($output);
+    die;
+</pre>
+
+<h5>Results :</h5>
+ 
+<pre style="background-color: #e7f3d3; color: black;">order_dispatch log time: 202.191.214.153 - January 3, 2019, 9:44 am</pre>
+
+<pre style="background-color: #d3f1f3; color: black;">    Log: {
+            "status":"0",
+            "reason":{},
+            "PlanID":"3000000022291"
+          }</pre>
+		  
+		  
+		  
+- **For Online Order Fraud Alert Process**
+
+
+<pre style="background-color: #d3f1f3; color: black;">        $PlanID = '3000000020110';          //Plan ID retrieved from Web Call 1 API
+        $Method = "OnlineOrderFraudAlert";
+        $Details = $_POST['fdetails']; //fraud text
+        
+
+
+<pre style="background-color: #d3f1f3; color: black;">       $obj = new OnlineOrderFraudAlert(URL, $Method, '', JAMTOKEN, AUTHTOKEN, $PlanID, '', '' , '',$Details);
+       $response = $obj->_OnlineOrderFraudAlert(); 
+        $output = json_decode($response,true);    [dd($output);]
+        $openErrorStatus=new\openpayau\openpaylaravel\lib\Openpay\Exception\ErrorHandler();</pre>
+        
+
+
+Something to write to txt log:
+<pre style="background-color: #d3f1f3; color: black;">         $log  = "Order fraud log time: ".$_SERVER['REMOTE_ADDR'].' - '.date("F j, Y, g:i a").PHP_EOL.
+         "Log: ".$response.PHP_EOL.
+         "-------------------------".PHP_EOL;</pre>
+
+
+Save string to log, use FILE_APPEND to append:
+<pre style="background-color: #d3f1f3; color: black;">        
+file_put_contents('./lib/Openpay/Log/log'.date("j.n.Y").'.log', $log, FILE_APPEND);</pre>
+        .
+
+<br>
+This API call is provided for those systems that support latent customer fraud warning alerts that may be received outside of the normal process.
