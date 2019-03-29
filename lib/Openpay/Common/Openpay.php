@@ -8,8 +8,18 @@
  */
  
 //define your url and tokens
-define("URL","https://retailer.myopenpay.com.au/ServiceTraining/JAMServiceImpl.svc/"); // Change the url as per Test or Live Environment
-define("JAMTOKEN","Put your JamToken here"); // Change the jamtoken as per Test or Live Environment
+/****AUS****/
+//define("URL","https://retailer.myopenpay.com.au/ServiceTraining/JAMServiceImpl.svc/"); // Change the url as per Test or Live Environment
+//define("FORM_URL","https://retailer.myopenpay.com.au/WebSalesTraining/"); // Change the url as per Test or Live Environment
+//define("JAMTOKEN","token aus"); // Change the jamtoken as per Test or Live Environment
+/****AUS****/
+
+/****UK****/
+define("URL","https://integration.training.myopenpay.co.uk/JamServiceImpl.svc/"); // Change the url as per Test or Live Environment
+define("FORM_URL","https://websales.training.myopenpay.co.uk/"); // Change the url as per Test or Live Environment
+define("JAMTOKEN","token uk"); // Change the jamtoken as per Test or Live Environment
+/****UK****/
+
 define('CALLBACK_URL','/checkout/callback'); // Success Url
 define('CANCLE_URL','/checkout/cancel'); // Cancel Url
 define('FAILURE_URL','/checkout/failure'); // Failure Url

@@ -28,20 +28,39 @@ class NewOnlineOrder extends ApiConnection
 	
 	//making the api body with parameters in xml format
 	private function _prepareXmldocument(){
-	    $this->xml = new SimpleXMLElement('<NewOnlineOrder/>'); 
+		$this->xml = new SimpleXMLElement('<NewOnlineOrder/>'); 
 	    $this->xml->addChild('JamAuthToken', $this->jamtoken );
 	    $this->xml->addChild('PurchasePrice', $this->PurchasePrice);
 	    $this->xml->addChild('PlanCreationType', 'Pending');
+	    $this->xml->addChild('RetailerOrderNo', $this->PostValues['RetailerOrderNo']);
+	    $this->xml->addChild('ChargeBackCount', $this->PostValues['ChargeBackCount']);
+	    $this->xml->addChild('CustomerQuality', $this->PostValues['CustomerQuality']);
+	    $this->xml->addChild('FirstName', $this->PostValues['FirstName']);
+	    $this->xml->addChild('OtherNames', $this->PostValues['OtherNames']);
+	    $this->xml->addChild('FamilyName', $this->PostValues['FamilyName']);
+	    $this->xml->addChild('Email', $this->PostValues['Email']);
+	    $this->xml->addChild('DateOfBirth', $this->PostValues['DateOfBirth']);
+	    $this->xml->addChild('Gender', $this->PostValues['Gender']);
+	    $this->xml->addChild('PhoneNumber', $this->PostValues['PhoneNumber']);
+	    $this->xml->addChild('ResAddress1', $this->PostValues['ResAddress1']);
+	    $this->xml->addChild('ResAddress2', $this->PostValues['ResAddress2']);
+	    $this->xml->addChild('ResSuburb', $this->PostValues['ResSuburb']);
+	    $this->xml->addChild('ResState', $this->PostValues['ResState']);
+	    $this->xml->addChild('ResPostCode', $this->PostValues['ResPostCode']);
+	    $this->xml->addChild('DelAddress1', $this->PostValues['DelAddress1']);
+	    $this->xml->addChild('DelAddress2', $this->PostValues['DelAddress2']);
+	    $this->xml->addChild('DelSuburb', $this->PostValues['DelSuburb']);
+	    $this->xml->addChild('DelState', $this->PostValues['DelState']);
+	    $this->xml->addChild('DelPostCode', $this->PostValues['DelPostCode']);
 		if($this->BasketData){
 			$this->BasketDataXmlBulder( $this->BasketData, $this->xml );
 		}
 		$types = $this->xml->addChild('TenderTypes')->addChild('TenderType');
 		$types->addChild('Tender','Openpay');
 		$types->addChild('Amount',$this->PurchasePrice);
+		//print($this->xml->asXML());die();
 	    return $this->xml;
 	}
-	
-	//make the busket data request
 	public function BasketDataXmlBulder( $data, &$xml_data ) {
 		$mainNode = $xml_data->addChild('BasketData');
 		foreach( $data->BasketData['BasketItem'] as $key => $value ) {
@@ -68,6 +87,7 @@ class NewOnlineOrder extends ApiConnection
 	{
 	    try {
 		  	Validation::_validatePrice($this->PurchasePrice);
+		  	//Validation::_minmaxPrice($this->PurchasePrice);
 		  	//If the exception is thrown, this text will not be shown
 		  	$this->_updateUrl();
 		    $this->_prepareXmldocument();

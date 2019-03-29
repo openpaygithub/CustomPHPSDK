@@ -39,39 +39,97 @@ define('CALLBACK_URL','/checkout/callback'); // Success Url
 define('CANCLE_URL','/checkout/cancel'); // Cancel Url
 define('FAILURE_URL','/checkout/failure'); // Failure Url
 </pre>
-<pre style="background-color: #d3f1f3; color: black;">      $PurchasePrice = 170.00;                                            //Format : 100.00(Not more than $1 million)
+<pre style="background-color: #d3f1f3; color: black;"> 
+
+    if (isset($_POST['payment_type'])) 
+    {
+            $errors = $this->userInfoValidate($_POST);
+            if (!empty($errors)) 
+            {
+                $this->session->set_flashdata('submit_error', $errors);
+            } 
+            else 
+            {
+               $url=URL;
+               $jamtoken=JAMTOKEN;
+                $_POST['referrer'] = $this->session->userdata('referrer');
+                $_POST['clean_referrer'] = cleanReferral($_POST['referrer']);
+                $_POST['user_id'] = isset($_SESSION['logged_user']) ? $_SESSION['logged_user'] : 0;
+                $orderId = '10001';                                    //To Get OrderID            
+        
+                if ($orderId != false) 
+                {     
+                      $PurchasePrice = 170.00;                         //Format : 100.00(Not more than $1 million)
       
-      $JamCallbackURL = $current_url.CALLBACK_URL;     //Not more than 250 characters
+                      $JamCallbackURL = $current_url.CALLBACK_URL;     //Not more than 250 characters
       
-      $JamCancelURL = $current_url.CANCLE_URL;         //Not more than 250 characters
+                      $JamCancelURL = $current_url.CANCLE_URL;         //Not more than 250 characters
       
-      $JamFailURL = $current_url.FAILURE_URL;          //Not more than 250 characters
+                      $JamFailURL = $current_url.FAILURE_URL;          //Not more than 250 characters
       
-      $form_url = URL;
+                      $form_url = URL;
+                      
+                      $JamRetailerOrderNo = '10000478';                //Consumer site order number
       
-      $JamRetailerOrderNo = '10000478';                                  //Consumer site order number
+                      $JamEmail = 'gautamtest@gmail.com';              //Not more than 150 characters
       
-      $JamEmail = 'gautamtest@gmail.com';                               //Not more than 150 characters
+                      $JamFirstName = 'Test';                          //First name(Not more than 50 characters)
       
-      $JamFirstName = 'Test';                                           //First name(Not more than 50 characters)
-      
-      $JamOtherNames = 'Devloper';                                      //Middle name(Not more than 50 characters)
-      
-      $JamFamilyName = 'Test';                                          //Last name(Not more than 50 characters)
-      
-      $JamDateOfBirth = '04 Nov 1985';                                  //dd mmm yyyy
-      
-      $JamAddress1 = '15/520 Collins Street';                           //Not more than 100 characters
-      
-      $JamAddress2 = '';                                                //Not more than 100 characters
-      
-      $JamSubrub = 'Melbourne';                                         //Not more than 100 characters
-      
-      $JamState = 'VIC';                                                //Not more than 3 characters
-      
-      $JamPostCode = '3000';                                            //Not more than 4 characters
-      
-      $JamDeliveryDate = '01 Jan 2019';                                 //dd mmm yyyy
+                      $JamOtherNames = 'Devloper';                     //Middle name(Not more than 50 characters)
+                      
+                      $JamFamilyName = 'Test';                         //Last name(Not more than 50 characters)
+                      
+                      $JamDateOfBirth = '04 Nov 1985';                 //dd mmm yyyy
+                      
+                      $JamAddress1 = '15/520 Collins Street';          //Not more than 100 characters
+                      
+                      $JamAddress2 = '';                               //Not more than 100 characters
+                      
+                      $JamSubrub = 'Melbourne';                        //Not more than 100 characters
+                      
+                      $JamState = 'VIC';                               //Not more than 3 characters
+                      
+                      $JamPostCode = '3000';                           //Not more than 4 characters
+                      
+                      $JamDeliveryDate = '01 Jan 2019';                //dd mmm yyyy
+
+                      $JamGender = 'M';                                //M/F
+                            
+                      $JamPhoneNumber = '9830000000';
+
+                      $ChargeBackCount = 0;                            //How many chargebacks are known to have been received from this customer?-1 = Unknown
+
+                      $CustomerQuality = 1;
+</pre>
+
+<br>
+
+<pre>
+          $product= array(
+              'BasketData' => array(
+                  'BasketItem' => array(
+                      array(
+                        'ItemName' => 'Shoes',
+                        'ItemGroup' => 'Footwear', 
+                        'ItemCode' => '1234567890', 
+                        'ItemGroupCode' => 'F123', 
+                        'ItemRetailUnitPrice' => '10.00', 
+                        'ItemQty' => '10', 
+                        'ItemRetailCharge' => '100.00'
+                           ),
+                      array(
+                        'ItemName' => 'Shirt', 
+                        'ItemGroup' => 'Dress', 
+                        'ItemCode' => '0897564213', 
+                        'ItemGroupCode' => 'F789', 
+                        'ItemRetailUnitPrice' => '7.00', 
+                        'ItemQty' => '10', 
+                        'ItemRetailCharge' => '70.00'
+                            )
+                                         )
+                                    )
+                          );                
+          $cartProduct=(object)$product;   
 </pre>
 
 <br>
@@ -81,7 +139,30 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;1. First check the Min Max price range based on purchase price:
 
-<pre style="background-color: #d3f1f3; color: black;">     try 
+<pre style="background-color: #d3f1f3; color: black;">     
+  $PostValues = array(
+                        'RetailerOrderNo'=>$JamRetailerOrderNo,
+                        'ChargeBackCount'=>$ChargeBackCount,
+                        'CustomerQuality'=>$CustomerQuality,
+                        'FirstName'=>$JamFirstName,
+                        'OtherNames'=>$JamOtherNames,
+                        'FamilyName'=>$JamFamilyName,
+                        'Email'=>$JamEmail,
+                        'DateOfBirth'=>$JamDateOfBirth,
+                        'Gender'=>$JamGender,
+                        'PhoneNumber'=>$JamPhoneNumber,
+                        'ResAddress1'=>$JamAddress1,
+                        'ResAddress2'=>$JamAddress2,
+                        'ResSuburb'=>$JamSubrub,
+                        'ResState'=>$JamState,
+                        'ResPostCode'=>$JamPostCode,
+                        'DelAddress1'=>$JamAddress1,
+                        'DelAddress2'=>$JamAddress2,
+                        'DelSuburb'=>$JamSubrub,
+                        'DelState'=>$JamState,
+                        'DelPostCode'=>$JamPostCode
+                    );
+  try 
           {
             if($PurchasePrice)
             Validation::_minmaxPrice($PurchasePrice);       
@@ -93,7 +174,7 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
      
       $Method = "NewOnlineOrder";
       
-      $obj = new NewOnlineOrder(URL,$Method,$PurchasePrice,JAMTOKEN, AUTHTOKEN,'','','','','');
+      $obj = new NewOnlineOrder(URL,$Method,$PurchasePrice,JAMTOKEN, AUTHTOKEN,'','','','','','',,$PostValues);
       
       $responsecall1 = $obj->_checkorder();
       
@@ -131,7 +212,7 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
     if($outputcall1)<br>
     {
         $JamPlanID = $outputcall1['PlanID'];                      //Plan ID retrieved from Web Call 1 API
-        $pagegurl = $form_url.'?JamCallbackURL='.$JamCallbackURL.'&JamCancelURL='.$JamCancelURL.'&JamFailURL='.$JamFailURL.'&JamAuthToken='.urlencode(JAMTOKEN).'&JamPlanID='.urlencode( (string) $JamPlanID).'&JamRetailerOrderNo='.urlencode( $JamRetailerOrderNo ).'&JamPrice='.urlencode($PurchasePrice).'&JamEmail='.urlencode($JamEmail).'&JamFirstName='.urlencode($JamFirstName).'&JamOtherNames='.urlencode($JamOtherNames).'&JamFamilyName='.urlencode($JamFamilyName).'&JamDateOfBirth='.urlencode($JamDateOfBirth).'&JamAddress1='.urlencode($JamAddress1).'&JamAddress2='.urlencode($JamAddress2).'&JamSubrub='.urlencode($JamSubrub).'&JamState='.urlencode($JamState).'&JamPostCode='.urlencode($JamPostCode).'&JamDeliveryDate='.urlencode($JamDeliveryDate);
+        $pagegurl = $form_url.'?JamCallbackURL='.$JamCallbackURL.'&JamCancelURL='.$JamCancelURL.'&JamFailURL='.$JamFailURL.'&JamAuthToken='.urlencode(JAMTOKEN);
           try {
                 if($JamDateOfBirth)
                     Validation::_validateDate($JamDateOfBirth);  
@@ -148,6 +229,53 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
               echo 'Message: ' .$e->getMessage();
           }
     }
+    if($outputcall1)
+          {
+            if($outputcall1['status'] == 0)
+            {
+                $this->db->where('order_id', $orderId);
+                
+                $result = $this->db->update('orders', array('plan_id' => $outputcall1['PlanID']));
+                
+                $JamPlanID = $outputcall1['PlanID'];                      //Plan ID retrieved from Web Call 1 API
+                
+                $pagegurl = $form_url.'?JamCallbackURL='.$JamCallbackURL.'&JamCancelURL='.$JamCancelURL.'&JamFailURL='.$JamFailURL.'&JamAuthToken='.urlencode(JAMTOKEN);
+                  try 
+                  {
+                        if($JamDateOfBirth)
+                            Validation::_validateDate($JamDateOfBirth);  
+                        if($JamDateOfBirth)
+                            Validation::_validateDate($JamDeliveryDate);
+                        if($JamState)
+                            Validation::_validateState($JamState);
+                        if($JamPostCode)
+                            Validation::_validatePostcode($JamPostCode);        
+                        $charge = OpenpayCharge::_charge($pagegurl);
+                      }
+                      catch(Exception $e) 
+                      {
+                          $this->session->set_flashdata('minmax_error', $e->getMessage());
+                      }
+                  }
+                  else
+                  {
+                      $this->session->set_flashdata('minmax_error', $outputcall1['reason']);
+                  }
+          }
+          $this->setVendorOrders();
+          $this->orderId = $orderId;
+          $this->setActivationLink();
+          $this->sendNotifications();
+                   
+        } 
+        else 
+        {
+             log_message('error', 'Cant save order!! ' . implode('::', $_POST));
+             $this->session->set_flashdata('order_error', true);
+             redirect(LANG_URL . '/checkout/order-error');
+        }
+    }
+}
 </pre>
 
 <br><br>

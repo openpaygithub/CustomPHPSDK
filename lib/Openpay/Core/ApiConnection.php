@@ -9,7 +9,7 @@
 class ApiConnection
 {
 	protected $Method;
-	public function __construct($url,$Method,$PurchasePrice='',$jamtoken,$authtoken,$PlanID='',$NewPurchasePrice='', $ReducePriceBy='', $type='',$Text='',$BasketData=array()) {
+	public function __construct($url,$Method,$PurchasePrice='',$jamtoken,$authtoken,$PlanID='',$NewPurchasePrice='', $ReducePriceBy='', $type='',$Text='',$BasketData=array(),$PostValues=array()) {
 	    $this->Method = $Method;
 	    $this->url = $url;
 	    $this->service_url = '';
@@ -22,6 +22,7 @@ class ApiConnection
 	    $this->FullRefund = $type;
 	    $this->Text = $Text;
 		$this->BasketData = $BasketData;
+		$this->PostValues = $PostValues;
 	}
 	
 	//This method is using for make the service url

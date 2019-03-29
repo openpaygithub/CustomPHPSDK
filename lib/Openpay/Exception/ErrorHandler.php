@@ -57,5 +57,8 @@ class ErrorHandler
 		elseif($error_code == 12711) {
 			return 'Invalid Web Sales Plan Status For Partial Refund';
 		}
+		elseif($error_code == 12719) {
+			return 'Maximum number of requests for Calendar Day reached';
+		}
 	}
 }
