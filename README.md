@@ -59,7 +59,7 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
         
                 if ($orderId != false) 
                 {     
-                      $PurchasePrice = 170.00;                         //Format : 100.00(Not more than $1 million)
+                      $PurchasePrice = 170.00;                       //Format : 100.00(Not more than $1 million), This values are comming form checkout form
       
                       $JamCallbackURL = $current_url.CALLBACK_URL;     //Not more than 250 characters
       
@@ -69,71 +69,40 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
       
                       $form_url = URL;
                       
-                      $JamRetailerOrderNo = '10000478';                //Consumer site order number
+                      $JamRetailerOrderNo = '10000478';                //Consumer site order number, This values are comming form checkout form
       
-                      $JamEmail = 'gautamtest@gmail.com';              //Not more than 150 characters
+                      $JamEmail = 'gautamtest@gmail.com';              //Not more than 150 characters, This values are comming form checkout form
       
-                      $JamFirstName = 'Test';                          //First name(Not more than 50 characters)
+                      $JamFirstName = 'Test';                          //First name(Not more than 50 characters), This values are comming form checkout form
       
-                      $JamOtherNames = 'Devloper';                     //Middle name(Not more than 50 characters)
+                      $JamOtherNames = 'Devloper';                     //Middle name(Not more than 50 characters), This values are comming form checkout form
                       
-                      $JamFamilyName = 'Test';                         //Last name(Not more than 50 characters)
+                      $JamFamilyName = 'Test';                         //Last name(Not more than 50 characters), This values are comming form checkout form
                       
-                      $JamDateOfBirth = '04 Nov 1985';                 //dd mmm yyyy
+                      $JamDateOfBirth = '04 Nov 1985';                 //dd mmm yyyy, This values are comming form checkout form
                       
-                      $JamAddress1 = '15/520 Collins Street';          //Not more than 100 characters
+                      $JamAddress1 = '15/520 Collins Street';          //Not more than 100 characters, This values are comming form checkout form
                       
-                      $JamAddress2 = '';                               //Not more than 100 characters
+                      $JamAddress2 = '';                               //Not more than 100 characters, This values are comming form checkout form
                       
-                      $JamSubrub = 'Melbourne';                        //Not more than 100 characters
+                      $JamSubrub = 'Melbourne';                        //Not more than 100 characters, This values are comming form checkout form
                       
-                      $JamState = 'VIC';                               //Not more than 3 characters
+                      $JamState = 'VIC';                               //Not more than 3 characters, This values are comming form checkout form
                       
-                      $JamPostCode = '3000';                           //Not more than 4 characters
+                      $JamPostCode = '3000';                           //Not more than 4 characters, This values are comming form checkout form
                       
-                      $JamDeliveryDate = '01 Jan 2019';                //dd mmm yyyy
+                      $JamDeliveryDate = '01 Jan 2019';                //dd mmm yyyy, This values are comming form checkout form
 
-                      $JamGender = 'M';                                //M/F
+                      $JamGender = 'M';                                //M/F, This values are comming form checkout form
                             
-                      $JamPhoneNumber = '9830000000';
+                      $JamPhoneNumber = '9830000000';                 // This values are comming form checkout form
 
-                      $ChargeBackCount = 0;                            //How many chargebacks are known to have been received from this customer?-1 = Unknown
+                      $ChargeBackCount = 0;                 //(optional) How many chargebacks are known to have been received from this customer?-1 = Unknown
 
                       $CustomerQuality = 1;
 </pre>
 
 <br>
-
-<pre>
-          $product= array(
-              'BasketData' => array(
-                  'BasketItem' => array(
-                      array(
-                        'ItemName' => 'Shoes',
-                        'ItemGroup' => 'Footwear', 
-                        'ItemCode' => '1234567890', 
-                        'ItemGroupCode' => 'F123', 
-                        'ItemRetailUnitPrice' => '10.00', 
-                        'ItemQty' => '10', 
-                        'ItemRetailCharge' => '100.00'
-                           ),
-                      array(
-                        'ItemName' => 'Shirt', 
-                        'ItemGroup' => 'Dress', 
-                        'ItemCode' => '0897564213', 
-                        'ItemGroupCode' => 'F789', 
-                        'ItemRetailUnitPrice' => '7.00', 
-                        'ItemQty' => '10', 
-                        'ItemRetailCharge' => '70.00'
-                            )
-                                         )
-                                    )
-                          );                
-          $cartProduct=(object)$product;   
-</pre>
-
-<br>
-
 - **Now you have to call the Call-1 new online order menthods like this**
 
 <br>
@@ -174,7 +143,7 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
      
       $Method = "NewOnlineOrder";
       
-      $obj = new NewOnlineOrder(URL,$Method,$PurchasePrice,JAMTOKEN, AUTHTOKEN,'','','','','','',,$PostValues);
+      $obj = new NewOnlineOrder(URL,$Method,$PurchasePrice,JAMTOKEN, AUTHTOKEN,'','','','','','',$PostValues);
       
       $responsecall1 = $obj->_checkorder();
       
