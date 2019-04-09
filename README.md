@@ -280,7 +280,7 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
 
 <br><br>
 
-- **After the process is complete, the Jam system will redirect to the URL supplied along with a response value for the transaction.**
+- **After the payment  process complited on openpay, it will redirect to the merchant website with help of callback url.**
 
 
 <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Success Url :
@@ -347,7 +347,11 @@ define('FAILURE_URL','/checkout/failure'); // Failure Url
 <br>
 
 
-<pre style="background-color: #d3f1f3; color: black;">      $obj = new OnlineOrderCapturePayment(URL,$Method,'',JAMTOKEN,AUTHTOKEN,$plan_id);
+<pre style="background-color: #d3f1f3; color: black;">  
+$plan_id=$_GET['planid'];// callback url get    
+$Method = "OnlineOrderCapturePayment";
+
+ $obj = new OnlineOrderCapturePayment(URL,$Method,'',JAMTOKEN,AUTHTOKEN,$plan_id);
       
       $response = $obj->_checkorder();
       

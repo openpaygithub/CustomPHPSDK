@@ -15,7 +15,7 @@ class OpenpayCharge
 		header("Location: $pagegurl");
 	}
 	
-	/*After the process is complete, the Jam system will redirect to the URL supplied along with a response value for the transaction.
+	/*After the payment  process complited on openpay, it will redirect to the merchant website with help of callback url and user will get following response.
 				Success Result [JamCallbackURL]?status=SUCCESS&planid=1000000004231&orderid=h00000001
 				
 				Cancel Result [JamCancelURL or JamCallbackURL]?status=CANCELLED&planid=1000000004231&orderid=h00000001
